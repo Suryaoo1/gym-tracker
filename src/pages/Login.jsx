@@ -14,10 +14,13 @@ const Login = () => {
 
    const handleSubmit = async(e) => {
     e.preventDefault();
-    setForm("");
+    setForm({ email: "", password: "" });
     try{
-        const data = await apiRequest("/login", "POST", form);
+        const data = await apiRequest("/auth/login", "POST", form);
         localStorage.setItem("token", data.token);
+        localStorage.setItem("user", JSON.stringify(data.user));
+
+        window.location.href = "/dashboard";
     } 
     catch(err){
         console.log(err.message);       
